@@ -1,26 +1,6 @@
 body {
     margin: 0;
-    background: #aab6fa;
     font-family: 'Comfortaa', cursive;
-}
-
-.background {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.background img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: -1;
-    opacity: .5;
+    background-size: cover;
+    background: #aab6fa url('/static/background.jpg') no-repeat fixed center;
 }
