@@ -1,0 +1,130 @@
+#battleground_block {
+    display: none;
+    flex-direction: row;
+}
+
+.player_block {
+    background: white;
+    height: 96vh;
+    width: 23vw;
+    margin: 2vh 1vw 2vh 1vw;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+#playground {
+    height: 100vh;
+    width: 50vw;
+}
+
+.player_block .avatar {
+    width: 10vw;
+    min-width: 10vw;
+    height: 10vw;
+    min-height: 10vw;
+    border-radius: 50%;
+    background: #95d9ff;
+    margin-top: 2em;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px #3939b9;
+}
+
+.player_name {
+    margin: 1em;
+    text-align: center;
+    width: calc(100% - 2em);
+    font-size: 1.5em;
+    word-wrap: break-word;
+    font-weight: bold;
+}
+
+.stat_row {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2em;
+    margin-left: 1em;
+    margin-bottom: .7em;
+}
+
+.stat_row div {
+    width: 50%;
+}
+
+#play_block {
+    display: none;
+    background: #ffffff;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: 91vh;
+    border-radius: 2em;
+    padding-top: 5vh;
+}
+
+#rock, #scissors, #paper {
+    width: 14vw;
+    height: 14vw;
+    margin-left: 2vw;
+    border-radius: 1em;
+    margin-top: 7vw;
+}
+
+#rock:hover, #scissors:hover, #paper:hover {
+    cursor: pointer;
+    outline: solid 5px #95d9ff;
+}
+
+.progress-bar {
+    margin: 5vw 2vw 2vw;
+    width: 46vw;
+    height: 2vw;
+}
+
+.progress-bar-back {
+    background: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 1vw;
+}
+
+.progress-bar-front {
+    background: #4f9aff;
+    width: 50%;
+    height: 100%;
+    border-radius: 1vw;
+}
+
+.choose_text {
+    width: 100%;
+    font-size: 3em;
+    font-weight: bold;
+    color: #2250ef;
+    text-align: center;
+
+}
+
+#p1_rating, #p2_rating {
+    margin-left: 1em;
+    margin-top: .5em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.class_red_rating {
+    color: #ff2929;
+}
+
+#p1_rating div, #p2_rating div {
+    margin-top: .5em;
+}
+
+.global_rating_text{
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 1em;
+}

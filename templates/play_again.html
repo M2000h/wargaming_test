@@ -1,0 +1,45 @@
+{% block content %}
+    <style>
+        #play_again_block {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 50vh;
+            left: 50vw;
+            width: 35vw;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 1em;
+            padding-bottom: 1em;
+        }
+        #play_again_text{
+            margin-top: 1em;
+            font-size: 1.3em;
+            width: 100%;
+            text-align: center;
+        }
+        #play_again_block button{
+            margin-top: 1em;
+            padding: 1em;
+            width: 20vw;
+            margin-left: 7.5vw;
+            font-size: 1.3em;
+            border-radius: 1em;
+            background: #ccedff;
+            border: 2px #d4d3ee solid;
+        }
+        #play_again_block button:hover{
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function hide_play_again() {
+            document.getElementById("play_again_block").style.display = "none";
+        }
+    </script>
+    <div id="play_again_block">
+        <div id="play_again_text">Your opponent wants to play with you again</div>
+        <button onclick="play_again_approve()">Play</button>
+        <button onclick="hide_play_again()">Skip</button>
+    </div>
+{% endblock %}
