@@ -4,7 +4,7 @@ if (location.protocol === "https:")
 else
     socket = io.connect('http://' + document.domain + ':' + location.port);
 
-let wins = 0, draws = 0, loses = 0, nickname, opponent_nickname;
+let wins = 0, draws = 0, loses = 0, nickname, opponent_nickname="";
 
 socket.on('json_response', function (response) {
     if (response["type"] === "start_game") {
@@ -60,7 +60,8 @@ socket.on('json_response', function (response) {
             else if (response["table"][i][0] === opponent_nickname)
                 s1.className = "class_red_rating"
             document.getElementById("p1_rating").appendChild(s);
-            document.getElementById("p2_rating").appendChild(s1);
+            if (opponent_nickname !== "")
+                document.getElementById("p2_rating").appendChild(s1);
         }
     }
     console.log(response);
@@ -82,6 +83,7 @@ function new_game() {
     document.getElementById("p2_draws").innerText = "-";
     document.getElementById("p2_loses").innerText = "-";
     document.getElementById("p2_rating").innerHTML = "";
+    opponent_nickname = "";
 }
 
 function play_again_approve() {

@@ -3,6 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Player:
+    """
+    Data класс для информации об игроке
+    """
     nickname: str
     avatar: str
     wins: int = 0
@@ -13,6 +16,9 @@ class Player:
 
 @dataclass
 class Game:
+    """
+    Data класс для информации об игре
+    """
     p1_id: str
     p2_id: str
     p1_move: str = None
