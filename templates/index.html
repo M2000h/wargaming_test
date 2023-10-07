@@ -5,21 +5,76 @@
     <title>Rock Paper Scissors</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three/+esm",
+                "controls": "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js",
+                "gltf": "https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js"
+			}
+	}
+
+    </script>
+
     <script src="/static/socket.js"></script>
     <link rel="stylesheet" href="/static/background.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="/static/nickname_input.css"/>
+    <script src="/static/nickname_input.js"></script>
+
+    <link rel="stylesheet" href="/static/battleground.css"/>
+    <script src="/static/battleground.js"></script>
+
+    <link rel="stylesheet" href="/static/waiting_block.css"/>
+    <link rel="stylesheet" href="/static/win.css"/>
+
+    <link rel="stylesheet" href="/static/play_again.css"/>
+    <link rel="stylesheet" href="/static/play_again.js"/>
+
 </head>
 
 <body>
+<div id="app">
+    {% include 'nickname_input.html' %}
+    {% include 'battleground.html' %}
+    {% include 'play_again.html' %}
+</div>
+
+<script src="/static/waiting.js" type="module"></script>
+<script src="/static/win.js" type="module"></script>
+<script src="/static/draw.js" type="module"></script>
+<script src="/static/lose.js" type="module"></script>
+
 
 <script>
-    let app = new Vue();
+    let app = new Vue({
+        el: '#app',
+        data: {
+            showNicknameInput: true,
+            showBattleground: false,
+            showWaiting: true,
+            showWin: false,
+            showDraw: false,
+            showLose: false,
+            showPlayAgain: false,
+            p1_name: "...",
+            p2_name: "...",
+            p1_wins: 0,
+            p1_draws: 0,
+            p1_loses: 0,
+            p2_wins: "-",
+            p2_draws: "-",
+            p2_loses: "-",
+            p1_image: "/static/avatars/1.gif",
+            p2_image: "/static/avatars/question.png"
+        },
+    });
 </script>
 
-{% include 'nickname_input.html' %}
-{% include 'battleground.html' %}
-{% include 'play_again.html' %}
 </body>
 
 </html>

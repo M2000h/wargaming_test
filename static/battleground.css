@@ -1,5 +1,5 @@
 #battleground_block {
-    display: none;
+    display: flex;
     flex-direction: row;
 }
 

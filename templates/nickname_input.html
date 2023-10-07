@@ -1,55 +1,8 @@
 {% block content %}
-    <link rel="stylesheet" href="/static/nickname_input.css"/>
-    <script>
-        const avatars_list = ["1.gif", "2.svg", "3.svg", "4.svg", "5.svg", "6.svg", "7.svg", "8.svg", "9.svg", "10.svg"];
-        let curr_avatar = 0;
-
-        function filter_nickname(input_element) {
-            input_element.value = input_element.value.replace(/[^a-zA-Zа-яА-Я0-9]/g, '');
-        }
-
-        function submit_nickname(input_element) {
-            if (event.key === 'Enter') {
-                if (input_element.value.length === 0) {
-                    alert("input your name!");
-                    return;
-                }
-                socket.emit('json_message',
-                    {
-                        "type": "new_user",
-                        "nickname": input_element.value,
-                        "avatar": avatars_list[curr_avatar],
-                    });
-                document.getElementById("nickname_input_window").style.display = "none";
-                document.getElementById("battleground_block").style.display = "flex";
-
-                {#document.getElementById("play_again_block").style.display = "flex";#}
-                {#document.getElementById("waiting_block").style.display = "none";#}
-                {#document.getElementById("draw_block").style.display = "block";#}
-                {#set_timer(10);#}
-                nickname = input_element.value;
-                document.getElementById("player_1_name").innerText = nickname;
-                document.getElementById("my_avatar").setAttribute("src", "/static/avatars/" + avatars_list[curr_avatar]);
-            }
-        }
-
-        function next_avatar() {
-            curr_avatar++;
-            curr_avatar %= avatars_list.length;
-            document.getElementById("avatar_input").setAttribute("src", "/static/avatars/" + avatars_list[curr_avatar]);
-        }
-
-        function prev_avatar() {
-            curr_avatar--;
-            curr_avatar += avatars_list.length;
-            curr_avatar %= avatars_list.length;
-            document.getElementById("avatar_input").setAttribute("src", "/static/avatars/" + avatars_list[curr_avatar]);
-        }
-    </script>
-    <div class="nickname_input_window" id="nickname_input_window">
+    <div class="nickname_input_window" v-if="showNicknameInput">
         <div class="avatar_choose">
             {% include 'left.html' %}
-            <img class="avatar" id="avatar_input" src="/static/avatars/1.gif">
+            <img class="avatar" :src="p1_image">
             {% include 'right.html' %}
         </div>
         <input class="input_area"

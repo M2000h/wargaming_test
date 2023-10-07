@@ -168,8 +168,8 @@ def game_progress(game_id: str) -> None:
     if player_1_move == player_2_move:
         players[player_1].draws += 1
         players[player_2].draws += 1
-        gs.send_result(player_1, "draw", player_2_move, players[player_2].__dict__)
-        gs.send_result(player_2, "draw", player_1_move, players[player_1].__dict__)
+        gs.send_result(player_1, "draw", player_2_move)
+        gs.send_result(player_2, "draw", player_1_move)
 
     elif (player_1_move, player_2_move) in [
         ("rock", "scissors"),
@@ -178,14 +178,14 @@ def game_progress(game_id: str) -> None:
     ] or player_2_move is None:
         players[player_1].wins += 1
         players[player_2].loses += 1
-        gs.send_result(player_1, "win", player_2_move, players[player_2].__dict__)
-        gs.send_result(player_2, "lose", player_1_move, players[player_1].__dict__)
+        gs.send_result(player_1, "win", player_2_move)
+        gs.send_result(player_2, "lose", player_1_move)
 
     else:
         players[player_1].loses += 1
         players[player_2].wins += 1
-        gs.send_result(player_1, "lose", player_2_move, players[player_2].__dict__)
-        gs.send_result(player_2, "win", player_1_move, players[player_1].__dict__)
+        gs.send_result(player_1, "lose", player_2_move)
+        gs.send_result(player_2, "win", player_1_move)
     games[game_id].status = "ended"
     update_rating_table()
 

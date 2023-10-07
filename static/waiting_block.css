@@ -1,0 +1,30 @@
+#waiting_block {
+    background: #ffffff55;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: 96vh;
+    border-radius: 2em;
+}
+
+#container {
+    height: 96vh !important;
+    width: 50vw !important;
+}
+
+#container canvas {
+    border-radius: 2em;
+}
+
+#waiting_text {
+    font-size: 2em;
+    position: absolute;
+    color: #2250ef;
+    font-weight: bold;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+}
+
+.typed-cursor {
+    display: none;
+}

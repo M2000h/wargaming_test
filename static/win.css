@@ -1,0 +1,43 @@
+#win_block, #draw_block, #lose_block {
+    background: #ffffff55;
+    width: 100%;
+    margin-top: 2vh;
+    height: 96vh;
+    border-radius: 2em;
+}
+
+#win_container, #draw_container, #lose_container {
+    height: 96vh !important;
+    width: 50vw !important;
+}
+
+#victory_text {
+    width: 50vw;
+    text-align: center;
+    font-size: 3em;
+    position: absolute;
+    color: #2250ef;
+    font-weight: bold;
+    top: 8vh;
+}
+
+.new_game_buttons {
+    position: absolute;
+    left: 50vw;
+    top: 80vh;
+    width: fit-content;
+    transform: translateX(-50%);
+}
+
+.new_game_buttons button {
+    padding: 1em;
+    border-radius: 1em;
+    background: #f6f6f6;
+    color: #2250ef;
+    font-size: 1em;
+    border: 1px solid #2250ef;
+}
+
+.new_game_buttons button:hover {
+    cursor: pointer;
+}

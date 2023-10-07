@@ -1,58 +1,19 @@
 {% block content %}
-    <link rel="stylesheet" href="/static/battleground.css"/>
-    <script>
-        function make_move(move) {
-            socket.emit('json_message', {"type": "move", "move": move.id});
-            let buttons = document.getElementsByClassName("choose_button");
-            for (let i = 0; i < buttons.length; i++) {
-                if (buttons[i].id !== move.id)
-                    buttons[i].style.visibility = "hidden";
-            }
-        }
-
-        function getColorByPercentage(percentage) {
-            if (percentage < 0) {
-                percentage = 0;
-            } else if (percentage > 100) {
-                percentage = 100;
-            }
-
-            let green = Math.min(255, Math.floor(255 * (percentage / 50)));
-            let red = Math.min(255, Math.floor(255 * ((100 - percentage) / 50)));
-            let blue = 0;
-
-            return `rgb(${red}, ${green}, ${blue})`;
-        }
-        let curr_secs = 0;
-        function set_timer() {
-            curr_secs -= .025;
-            let perc = curr_secs / 10 * 100;
-            document.getElementById("progress-bar-front").style.width = `${perc}%`;
-            document.getElementById("progress-bar-front").style.background = getColorByPercentage(perc);
-            if (curr_secs > 0) {
-                setTimeout(function () {
-                    set_timer()
-                }, 25)
-            } else {
-                document.getElementById("progress-bar-front").style.width = `0`;
-            }
-        }
-    </script>
-    <div id="battleground_block">
+    <div id="battleground_block" v-show="showBattleground">
         <div id="player_1_block" class="player_block">
-            <img src="/static/avatars/question.png" id="my_avatar" class="avatar">
-            <div class="player_name" id="player_1_name">player_1</div>
+            <img :src="p1_image" id="my_avatar" class="avatar">
+            <div class="player_name" v-text="p1_name"></div>
             <div class="stat_row">
                 <div style="color: #39b93f">Wins:</div>
-                <div id="p1_wins">0</div>
+                <div v-text="p1_wins"></div>
             </div>
             <div class="stat_row">
                 <div>Draws:</div>
-                <div id="p1_draws">0</div>
+                <div v-text="p1_draws"></div>
             </div>
             <div class="stat_row">
                 <div style="color: #b93939">Loses:</div>
-                <div id="p1_loses">0</div>
+                <div v-text="p1_loses"></div>
             </div>
             <div class="global_rating_text">Global rating</div>
             <div id="p1_rating">
@@ -83,20 +44,20 @@
         </div>
 
         <div id="player_2_block" class="player_block">
-            <img src="/static/avatars/question.png" id="op_avatar" class="avatar">
-            <div class="player_name" id="player_2_name">...</div>
+            <img :src="p2_image" id="op_avatar" class="avatar">
+            <div class="player_name" v-text="p2_name"></div>
 
             <div class="stat_row">
                 <div style="color: #39b93f">Wins:</div>
-                <div id="p2_wins">-</div>
+                <div v-text="p2_wins"></div>
             </div>
             <div class="stat_row">
                 <div>Draws:</div>
-                <div id="p2_draws">-</div>
+                <div v-text="p2_draws"></div>
             </div>
             <div class="stat_row">
                 <div style="color: #b93939">Loses:</div>
-                <div id="p2_loses">-</div>
+                <div v-text="p2_loses"></div>
             </div>
             <div class="global_rating_text">Global rating</div>
             <div id="p2_rating">

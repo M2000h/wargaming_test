@@ -76,13 +76,12 @@ class GameSocket(SocketIO):
             room=player_id,
         )
 
-    def send_result(self, player_id: str, result: str, opponent_move: str, opponent: Dict[str, object]) -> None:
+    def send_result(self, player_id: str, result: str, opponent_move: str or None) -> None:
         """ Отправка результата игры
 
         :param player_id:
         :param result:
         :param opponent_move:
-        :param opponent:
         """
         self.emit(
             "json_response",
@@ -90,7 +89,6 @@ class GameSocket(SocketIO):
                 "type": "game_result",
                 "result": result,
                 "opponent_move": opponent_move,
-                "opponent": opponent,
             },
             room=player_id,
         )

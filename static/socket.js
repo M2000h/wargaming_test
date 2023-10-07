@@ -4,20 +4,23 @@ if (location.protocol === "https:")
 else
     socket = io.connect('http://' + document.domain + ':' + location.port);
 
-let wins = 0, draws = 0, loses = 0, nickname, opponent_nickname="";
 
 socket.on('json_response', function (response) {
     if (response["type"] === "start_game") {
-        opponent_nickname = response["opponent"]["nickname"];
-        document.getElementById("player_2_name").innerText = opponent_nickname;
-        document.getElementById("p2_wins").innerText = response["opponent"]["wins"];
-        document.getElementById("p2_draws").innerText = response["opponent"]["draws"];
-        document.getElementById("p2_loses").innerText = response["opponent"]["loses"];
-        document.getElementById("op_avatar").setAttribute("src", "/static/avatars/" + response["opponent"]["avatar"]);
-        document.getElementById("waiting_block").style.display = "none";
-        document.getElementById("win_block").style.display = "none";
-        document.getElementById("lose_block").style.display = "none";
-        document.getElementById("draw_block").style.display = "none";
+        let opponent = response["opponent"];
+        app.p2_name = opponent["nickname"];
+        app.p2_wins = opponent["wins"];
+        app.p2_draws = opponent["draws"];
+        app.p2_loses = opponent["loses"];
+        app.p2_image = `/static/avatars/${opponent["avatar"]}`;
+
+        app.showWaiting = false;
+        app.showWin = false;
+        app.showDraw = false;
+        app.showLose = false;
+
+        app.showPlayAgain = false;
+
         document.getElementById("play_block").style.display = "block";
         let buttons = document.getElementsByClassName("choose_button");
         for (let i = 0; i < buttons.length; i++) {
@@ -28,26 +31,20 @@ socket.on('json_response', function (response) {
     } else if (response["type"] === "game_result") {
         document.getElementById("play_block").style.display = "none";
         if (response["result"] === "win") {
-            document.getElementById("win_block").style.display = "block";
-            wins++;
-
+            app.showWin = true;
+            app.p1_wins++;
+            app.p2_loses++;
         } else if (response["result"] === "lose") {
-            document.getElementById("lose_block").style.display = "block";
-            loses++;
+            app.showLose = true;
+            app.p1_loses++;
+            app.p2_wins++;
         } else {
-            document.getElementById("draw_block").style.display = "block";
-            draws++;
+            app.showDraw = true;
+            app.p1_draws++;
+            app.p2_draws++;
         }
-        document.getElementById("p1_wins").innerText = wins;
-        document.getElementById("p1_draws").innerText = draws;
-        document.getElementById("p1_loses").innerText = loses;
-
-        document.getElementById("p2_wins").innerText = response["opponent"]["wins"];
-        document.getElementById("p2_draws").innerText = response["opponent"]["draws"];
-        document.getElementById("p2_loses").innerText = response["opponent"]["loses"];
-
     } else if (response["type"] === "play_again") {
-        document.getElementById("play_again_block").style.display = "flex";
+        app.showPlayAgain = true;
     } else if (response["type"] === "update_rating") {
         document.getElementById("p1_rating").innerHTML = "";
         document.getElementById("p2_rating").innerHTML = "";
@@ -55,12 +52,12 @@ socket.on('json_response', function (response) {
             let s = document.createElement("div");
             s.innerText = `${i + 1}. ${response["table"][i][0]} ${response["table"][i][1]}`;
             let s1 = s.cloneNode(true);
-            if (response["table"][i][0] === nickname)
+            if (response["table"][i][0] === app.p1_name)
                 s.className = "class_red_rating"
-            else if (response["table"][i][0] === opponent_nickname)
+            else if (response["table"][i][0] === app.p2_name)
                 s1.className = "class_red_rating"
             document.getElementById("p1_rating").appendChild(s);
-            if (opponent_nickname !== "")
+            if (app.p1_name !== "...")
                 document.getElementById("p2_rating").appendChild(s1);
         }
     }
@@ -73,20 +70,19 @@ function play_again() {
 
 function new_game() {
     socket.emit('json_message', {"type": "new_game"});
-    document.getElementById("win_block").style.display = "none";
-    document.getElementById("lose_block").style.display = "none";
-    document.getElementById("draw_block").style.display = "none";
-    document.getElementById("waiting_block").style.display = "block";
-    document.getElementById("player_2_name").innerText = "...";
-    document.getElementById("op_avatar").setAttribute("src", "/static/avatars/question.png");
-    document.getElementById("p2_wins").innerText = "-";
-    document.getElementById("p2_draws").innerText = "-";
-    document.getElementById("p2_loses").innerText = "-";
+    app.showWin = false;
+    app.showDraw = false;
+    app.showLose = false;
+    app.showWaiting = true;
+    app.p2_name = "...";
+    app.p2_image = "/static/avatars/question.png";
+    app.p2_wins = "-";
+    app.p2_draws = "-";
+    app.p2_loses = "-";
     document.getElementById("p2_rating").innerHTML = "";
-    opponent_nickname = "";
 }
 
 function play_again_approve() {
     socket.emit('json_message', {"type": "play_again_approve"});
-    document.getElementById("play_again_block").style.display = "none";
+    app.showPlayAgain = false;
 }
