@@ -21,7 +21,7 @@ socket.on('json_response', function (response) {
 
         app.showPlayAgain = false;
 
-        document.getElementById("play_block").style.display = "block";
+        app.showPlay = true;
         let buttons = document.getElementsByClassName("choose_button");
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].style.visibility = "visible";
@@ -29,7 +29,7 @@ socket.on('json_response', function (response) {
         curr_secs = 10;
         set_timer();
     } else if (response["type"] === "game_result") {
-        document.getElementById("play_block").style.display = "none";
+        app.showPlay = false;
         if (response["result"] === "win") {
             app.showWin = true;
             app.p1_wins++;
@@ -52,10 +52,12 @@ socket.on('json_response', function (response) {
             let s = document.createElement("div");
             s.innerText = `${i + 1}. ${response["table"][i][0]} ${response["table"][i][1]}`;
             let s1 = s.cloneNode(true);
+
             if (response["table"][i][0] === app.p1_name)
-                s.className = "class_red_rating"
+                s.className = "class_red_rating";
             else if (response["table"][i][0] === app.p2_name)
-                s1.className = "class_red_rating"
+                s1.className = "class_red_rating";
+
             document.getElementById("p1_rating").appendChild(s);
             if (app.p1_name !== "...")
                 document.getElementById("p2_rating").appendChild(s1);

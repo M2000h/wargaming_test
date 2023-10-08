@@ -2,7 +2,7 @@
     <div id="battleground_block" v-show="showBattleground">
         <div id="player_1_block" class="player_block">
             <img :src="p1_image" id="my_avatar" class="avatar">
-            <div class="player_name" v-text="p1_name"></div>
+            <div class="player_name" v-text="name"></div>
             <div class="stat_row">
                 <div style="color: #39b93f">Wins:</div>
                 <div v-text="p1_wins"></div>
@@ -22,15 +22,12 @@
 
         <div id="playground">
             {% include 'waiting.html' %}
-            <div id="play_block">
+            <div id="play_block" v-show="showPlay">
                 <div class="choose_text">Choose wisely!</div>
                 <div style="display: flex; flex-direction: row;">
-                    <img onclick="make_move(this)" id="rock" class="choose_button"
-                         src="https://img.freepik.com/premium-vector/gray-boulder-cartoon-rock-icon-natural-element_543062-4393.jpg"/>
-                    <img onclick="make_move(this)" id="scissors" class="choose_button"
-                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXwmJEOmw1yxqJrC6xts9ncbDsIK_mbx1q0Q&usqp=CAU">
-                    <img onclick="make_move(this)" id="paper" class="choose_button"
-                         src="https://thumbs.dreamstime.com/b/paper-sheet-bent-object-design-doodle-hand-drawn-cartoon-illustration-108507285.jpg"/>
+                    <img onclick="make_move(this)" id="rock" class="choose_button" src="/static/pics/rock.jpg"/>
+                    <img onclick="make_move(this)" id="scissors" class="choose_button" src="/static/pics/scissors.jpg">
+                    <img onclick="make_move(this)" id="paper" class="choose_button" src="/static/pics/paper.jpg"/>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-bar-back">

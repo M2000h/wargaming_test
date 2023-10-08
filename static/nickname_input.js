@@ -19,7 +19,6 @@ function submit_nickname(input_element) {
             });
         app.showNicknameInput = false;
         app.showBattleground = true;
-
         app.p1_name = input_element.value;
         app.p1_image = "/static/avatars/" + avatars_list[curr_avatar];
     }
