@@ -1,0 +1,15 @@
+{% block content %}
+    <div id="play_block" v-show="showPlay">
+        <div class="choose_text">Choose wisely!</div>
+        <div style="display: flex; flex-direction: row;">
+            <img onclick="make_move(this)" id="rock" class="choose_button" src="/static/pics/rock.jpg"/>
+            <img onclick="make_move(this)" id="scissors" class="choose_button" src="/static/pics/scissors.jpg">
+            <img onclick="make_move(this)" id="paper" class="choose_button" src="/static/pics/paper.jpg"/>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-bar-back">
+                <div class="progress-bar-front" id="progress-bar-front"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -8,20 +8,20 @@ else
 socket.on('json_response', function (response) {
     if (response["type"] === "start_game") {
         let opponent = response["opponent"];
-        app.p2_name = opponent["nickname"];
-        app.p2_wins = opponent["wins"];
-        app.p2_draws = opponent["draws"];
-        app.p2_loses = opponent["loses"];
-        app.p2_image = `/static/avatars/${opponent["avatar"]}`;
+        app.players[1].name = opponent["nickname"];
+        app.players[1].wins = opponent["wins"];
+        app.players[1].draws = opponent["draws"];
+        app.players[1].loses = opponent["loses"];
+        app.players[1].image = `/static/avatars/${opponent["avatar"]}`;
 
         app.showWaiting = false;
         app.showWin = false;
         app.showDraw = false;
         app.showLose = false;
-
         app.showPlayAgain = false;
 
         app.showPlay = true;
+
         let buttons = document.getElementsByClassName("choose_button");
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].style.visibility = "visible";
@@ -32,39 +32,26 @@ socket.on('json_response', function (response) {
         app.showPlay = false;
         if (response["result"] === "win") {
             app.showWin = true;
-            app.p1_wins++;
-            app.p2_loses++;
+            app.players[0].wins++;
+            app.players[1].loses++;
         } else if (response["result"] === "lose") {
             app.showLose = true;
-            app.p1_loses++;
-            app.p2_wins++;
+            app.players[0].loses++;
+            app.players[1].wins++;
         } else {
             app.showDraw = true;
-            app.p1_draws++;
-            app.p2_draws++;
+            app.players[0].draws++;
+            app.players[1].draws++;
         }
     } else if (response["type"] === "play_again") {
         app.showPlayAgain = true;
     } else if (response["type"] === "update_rating") {
-        document.getElementById("p1_rating").innerHTML = "";
-        document.getElementById("p2_rating").innerHTML = "";
-        for (let i = 0; i < response["table"].length; i++) {
-            let s = document.createElement("div");
-            s.innerText = `${i + 1}. ${response["table"][i][0]} ${response["table"][i][1]}`;
-            let s1 = s.cloneNode(true);
-
-            if (response["table"][i][0] === app.p1_name)
-                s.className = "class_red_rating";
-            else if (response["table"][i][0] === app.p2_name)
-                s1.className = "class_red_rating";
-
-            document.getElementById("p1_rating").appendChild(s);
-            if (app.p1_name !== "...")
-                document.getElementById("p2_rating").appendChild(s1);
-        }
+        app.players[0].rating = response["table"];
+        app.players[1].rating = response["table"];
     }
     console.log(response);
-});
+})
+;
 
 function play_again() {
     socket.emit('json_message', {"type": "play_again"});
@@ -76,12 +63,7 @@ function new_game() {
     app.showDraw = false;
     app.showLose = false;
     app.showWaiting = true;
-    app.p2_name = "...";
-    app.p2_image = "/static/avatars/question.png";
-    app.p2_wins = "-";
-    app.p2_draws = "-";
-    app.p2_loses = "-";
-    document.getElementById("p2_rating").innerHTML = "";
+    app.players[1] = Object.assign({}, default_user);
 }
 
 function play_again_approve() {

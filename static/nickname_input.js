@@ -19,20 +19,23 @@ function submit_nickname(input_element) {
             });
         app.showNicknameInput = false;
         app.showBattleground = true;
-        app.p1_name = input_element.value;
-        app.p1_image = "/static/avatars/" + avatars_list[curr_avatar];
+        app.players[0].wins = 0;
+        app.players[0].draws = 0;
+        app.players[0].loses = 0;
+        app.players[0].name = input_element.value;
+        app.players[0].image = "/static/avatars/" + avatars_list[curr_avatar];
     }
 }
 
 function next_avatar() {
     curr_avatar++;
     curr_avatar %= avatars_list.length;
-    app.p1_image = "/static/avatars/" + avatars_list[curr_avatar];
+    app.players[0].image = "/static/avatars/" + avatars_list[curr_avatar];
 }
 
 function prev_avatar() {
     curr_avatar--;
     curr_avatar += avatars_list.length;
     curr_avatar %= avatars_list.length;
-    app.p1_image = "/static/avatars/" + avatars_list[curr_avatar];
+    app.players[0].image = "/static/avatars/" + avatars_list[curr_avatar];
 }

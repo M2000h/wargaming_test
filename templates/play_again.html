@@ -2,6 +2,6 @@
     <div id="play_again_block" v-show="showPlayAgain">
         <div id="play_again_text">Your opponent wants to play with you again</div>
         <button onclick="play_again_approve()">Play</button>
-        <button onclick="hide_play_again()">Skip</button>
+        <button onclick="app.showPlayAgain = false">Skip</button>
     </div>
 {% endblock %}

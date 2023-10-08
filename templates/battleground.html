@@ -1,63 +1,63 @@
 {% block content %}
     <div id="battleground_block" v-show="showBattleground">
         <div id="player_1_block" class="player_block">
-            <img :src="p1_image" id="my_avatar" class="avatar">
-            <div class="player_name" v-text="name"></div>
+            <img :src="players[0].image" id="my_avatar" class="avatar">
+            <div class="player_name" v-text="players[0].name"></div>
             <div class="stat_row">
                 <div style="color: #39b93f">Wins:</div>
-                <div v-text="p1_wins"></div>
+                <div v-text="players[0].wins"></div>
             </div>
             <div class="stat_row">
                 <div>Draws:</div>
-                <div v-text="p1_draws"></div>
+                <div v-text="players[0].draws"></div>
             </div>
             <div class="stat_row">
                 <div style="color: #b93939">Loses:</div>
-                <div v-text="p1_loses"></div>
+                <div v-text="players[0].loses"></div>
             </div>
             <div class="global_rating_text">Global rating</div>
+
             <div id="p1_rating">
+                <template v-for="(rate, index) in players[0].rating" :key="index">
+                    <div :class="{ 'class_red_rating': rate[0] === players[0].name }"
+                         v-text="index + 1 + '. ' + rate.join(' ')"></div>
+                </template>
             </div>
         </div>
 
         <div id="playground">
             {% include 'waiting.html' %}
-            <div id="play_block" v-show="showPlay">
-                <div class="choose_text">Choose wisely!</div>
-                <div style="display: flex; flex-direction: row;">
-                    <img onclick="make_move(this)" id="rock" class="choose_button" src="/static/pics/rock.jpg"/>
-                    <img onclick="make_move(this)" id="scissors" class="choose_button" src="/static/pics/scissors.jpg">
-                    <img onclick="make_move(this)" id="paper" class="choose_button" src="/static/pics/paper.jpg"/>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-bar-back">
-                        <div class="progress-bar-front" id="progress-bar-front"></div>
-                    </div>
-                </div>
-            </div>
+            {% include 'play.html' %}
             {% include 'win.html' %}
             {% include 'draw.html' %}
             {% include 'lose.html' %}
         </div>
 
         <div id="player_2_block" class="player_block">
-            <img :src="p2_image" id="op_avatar" class="avatar">
-            <div class="player_name" v-text="p2_name"></div>
+            <img :src="players[1].image" id="op_avatar" class="avatar">
+            <div class="player_name" v-text="players[1].name"></div>
 
             <div class="stat_row">
                 <div style="color: #39b93f">Wins:</div>
-                <div v-text="p2_wins"></div>
+                <div v-text="players[1].wins"></div>
             </div>
+
             <div class="stat_row">
                 <div>Draws:</div>
-                <div v-text="p2_draws"></div>
+                <div v-text="players[1].draws"></div>
             </div>
+
             <div class="stat_row">
                 <div style="color: #b93939">Loses:</div>
-                <div v-text="p2_loses"></div>
+                <div v-text="players[1].loses"></div>
             </div>
+
             <div class="global_rating_text">Global rating</div>
             <div id="p2_rating">
+                <template v-for="(rate, index) in players[1].rating" :key="index">
+                    <div :class="{ 'class_red_rating': rate[0] === players[1].name }"
+                         v-text="index + 1 + '. ' + rate.join(' ')" v-show="players[1].name !== '...'"></div>
+                </template>
             </div>
         </div>
     </div>

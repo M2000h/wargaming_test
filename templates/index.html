@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.js"></script>
+    <script src="https://web.shakura.video/static/analytics.js"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
     <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.js"></script>
@@ -17,7 +19,6 @@
                 "gltf": "https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js"
 			}
 	}
-
 
 
 
@@ -37,11 +38,10 @@
     <link rel="stylesheet" href="/static/win.css"/>
 
     <link rel="stylesheet" href="/static/play_again.css"/>
-    <link rel="stylesheet" href="/static/play_again.js"/>
 
 </head>
 
-<body>
+<body style="background:  #aab6fa url('/static/pics/background.jpg') no-repeat fixed center">
 <div id="app">
     {% include 'nickname_input.html' %}
     {% include 'battleground.html' %}
@@ -53,6 +53,15 @@
 
 
 <script>
+    const default_user = {
+        name: "...",
+        wins: "-",
+        draws: "-",
+        loses: "-",
+        image: "/static/avatars/question.png",
+        rating: []
+    };
+
     const app_context = Vue.createApp({
         data() {
             return {
@@ -64,20 +73,17 @@
                 showDraw: false,
                 showLose: false,
                 showPlayAgain: false,
-                p1_name: "...",
-                p2_name: "...",
-                p1_wins: 0,
-                p1_draws: 0,
-                p1_loses: 0,
-                p2_wins: "-",
-                p2_draws: "-",
-                p2_loses: "-",
-                p1_image: "/static/avatars/1.gif",
-                p2_image: "/static/avatars/question.png"
+                players: [
+                    Object.assign({}, default_user),
+                    Object.assign({}, default_user)
+                ]
             }
         }
     });
     const app = app_context.mount('#app');
+
+    app.players[0].image = "/static/avatars/" + avatars_list[0];
+
 
 </script>
 

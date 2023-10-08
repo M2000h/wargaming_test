@@ -2,7 +2,7 @@
     <div class="nickname_input_window" v-if="showNicknameInput">
         <div class="avatar_choose">
             {% include 'left.html' %}
-            <img class="avatar" :src="p1_image">
+            <img class="avatar" :src="players[0].image">
             {% include 'right.html' %}
         </div>
         <input class="input_area"
