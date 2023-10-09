@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Dict
+import queue
 
 
 @dataclass
@@ -27,3 +29,13 @@ class Game:
 
     def get_opponent(self, player_id):
         return self.p1_id if self.p1_id != player_id else self.p2_id
+
+
+@dataclass
+class GameServer:
+    """
+    Data Класс для содержания информации об играх и игроках
+    """
+    players: Dict[str, Player]
+    games: Dict[str, Game]
+    lobby_queue: queue.Queue = queue.Queue()

@@ -1,9 +1,9 @@
 {% block content %}
     <div class="nickname_input_window" v-if="showNicknameInput">
         <div class="avatar_choose">
-            {% include 'left.html' %}
+            {% include 'arrows/left.html' %}
             <img class="avatar" :src="players[0].image">
-            {% include 'right.html' %}
+            {% include 'arrows/right.html' %}
         </div>
         <input class="input_area"
                type="text"

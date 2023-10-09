@@ -3,3 +3,19 @@ body {
     font-family: 'Comfortaa', cursive;
     background-size: cover;
 }
+
+.codelink {
+    position: absolute;
+    left: 5vh;
+    bottom: 5vh;
+    width: 10vh;
+    height: 10vh;
+    opacity: .5;
+    border: #000000 solid 1em;
+    border-radius: 50%;
+}
+
+.codelink:hover{
+    cursor: pointer;
+    opacity: .8;
+}
